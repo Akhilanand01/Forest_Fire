@@ -1,0 +1,385 @@
+/* ── Reset & Base ──────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green: #22c55e;
+  --red: #ef4444;
+  --orange: #f97316;
+  --blue: #3b82f6;
+  --yellow: #eab308;
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface2: #334155;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+header {
+  background: linear-gradient(135deg, #134e2a 0%, #0f172a 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  font-size: 2.2rem;
+}
+
+.logo h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+.badge-connecting {
+  background: var(--surface2);
+  color: var(--text-muted);
+}
+
+.badge-online {
+  background: #166534;
+  color: var(--green);
+}
+
+.badge-error {
+  background: #7f1d1d;
+  color: var(--red);
+}
+
+.last-updated {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ── Alert Banner ─────────────────────────────────── */
+.alert-banner {
+  background: linear-gradient(90deg, #7f1d1d, #b91c1c);
+  color: #fff;
+  text-align: center;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  animation: pulse-bg 1.2s ease-in-out infinite alternate;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@keyframes pulse-bg {
+  from { background-color: #7f1d1d; }
+  to   { background-color: #ef4444; }
+}
+
+/* ── Main ────────────────────────────────────────── */
+main {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ── Cards Grid ───────────────────────────────────── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.25rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.card-body {
+  width: 100%;
+}
+
+.card-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.card-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.card-value.small {
+  font-size: 1rem;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.card-unit {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+/* Color indicator strip at the bottom of card */
+.card-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--surface2);
+  transition: background 0.4s;
+}
+
+.card-indicator.safe  { background: var(--green); }
+.card-indicator.warn  { background: var(--yellow); }
+.card-indicator.danger { background: var(--red); }
+
+/* Flame card danger highlight */
+.card.flame-danger {
+  border-color: var(--red);
+  box-shadow: 0 0 0 2px var(--red), var(--shadow);
+}
+
+/* Location card */
+.card-location {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .card-location {
+    grid-column: span 1;
+  }
+}
+
+.map-btn {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.4rem 1rem;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.map-btn:hover {
+  background: #2563eb;
+}
+
+/* ── Charts ───────────────────────────────────────── */
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.chart-card h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+/* ── Table ────────────────────────────────────────── */
+.table-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.table-section h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+thead th {
+  background: var(--surface2);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: var(--surface2);
+}
+
+tbody td {
+  padding: 0.6rem 0.8rem;
+  white-space: nowrap;
+}
+
+.no-data {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2rem !important;
+}
+
+.flame-yes {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.flame-no {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ── Footer ───────────────────────────────────────── */
+footer {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+/* ── Responsive Tweaks ────────────────────────────── */
+@media (max-width: 768px) {
+  header {
+    padding: 0.75rem 1rem;
+  }
+
+  .logo h1 {
+    font-size: 1.1rem;
+  }
+
+  main {
+    padding: 1.25rem 1rem;
+  }
+
+  .card-value {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card-value {
+    font-size: 1.6rem;
+  }
+}

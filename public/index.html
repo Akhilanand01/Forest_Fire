@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌲 Forest Fire & Smoke Monitor</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <!-- ── Header ── -->
+    <header>
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">🌲</span>
+          <div>
+            <h1>Forest Fire &amp; Smoke Monitor</h1>
+            <p class="subtitle">Real-time IoT Sensor Dashboard</p>
+          </div>
+        </div>
+        <div class="status-bar">
+          <span id="connection-status" class="badge badge-connecting">⏳ Connecting…</span>
+          <span class="last-updated">Last updated: <span id="last-updated">—</span></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Alert Banner ── -->
+    <div id="flame-alert" class="alert-banner hidden" role="alert">
+      🔥 <strong>DANGER!</strong> Flame detected! Immediate action required!
+    </div>
+
+    <main>
+      <!-- ── Sensor Cards ── -->
+      <section class="cards-grid" aria-label="Sensor readings">
+        <!-- Temperature -->
+        <div class="card" id="card-temperature">
+          <div class="card-icon">🌡️</div>
+          <div class="card-body">
+            <h2 class="card-title">Temperature</h2>
+            <p class="card-value" id="val-temperature">—</p>
+            <p class="card-unit">°C</p>
+          </div>
+          <div class="card-indicator" id="ind-temperature"></div>
+        </div>
+
+        <!-- Smoke -->
+        <div class="card" id="card-smoke">
+          <div class="card-icon">💨</div>
+          <div class="card-body">
+            <h2 class="card-title">Smoke Level</h2>
+            <p class="card-value" id="val-smoke">—</p>
+            <p class="card-unit">ppm</p>
+          </div>
+          <div class="card-indicator" id="ind-smoke"></div>
+        </div>
+
+        <!-- Flame -->
+        <div class="card" id="card-flame">
+          <div class="card-icon">🔥</div>
+          <div class="card-body">
+            <h2 class="card-title">Flame Status</h2>
+            <p class="card-value" id="val-flame">—</p>
+            <p class="card-unit">Detected?</p>
+          </div>
+          <div class="card-indicator" id="ind-flame"></div>
+        </div>
+
+        <!-- Humidity -->
+        <div class="card" id="card-humidity">
+          <div class="card-icon">💧</div>
+          <div class="card-body">
+            <h2 class="card-title">Humidity</h2>
+            <p class="card-value" id="val-humidity">—</p>
+            <p class="card-unit">%</p>
+          </div>
+          <div class="card-indicator" id="ind-humidity"></div>
+        </div>
+
+        <!-- Location -->
+        <div class="card card-location" id="card-location">
+          <div class="card-icon">📍</div>
+          <div class="card-body">
+            <h2 class="card-title">Location</h2>
+            <p class="card-value small" id="val-location">—</p>
+            <a id="map-link" href="#" target="_blank" rel="noopener noreferrer" class="map-btn hidden">
+              View on Google Maps 🗺️
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Charts ── -->
+      <section class="charts-section" aria-label="Sensor trend charts">
+        <div class="chart-card">
+          <h3>Temperature &amp; Humidity (last 20 readings)</h3>
+          <canvas id="chart-temp-humidity" aria-label="Temperature and Humidity chart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Smoke Level (last 20 readings)</h3>
+          <canvas id="chart-smoke" aria-label="Smoke level chart"></canvas>
+        </div>
+      </section>
+
+      <!-- ── Recent Readings Table ── -->
+      <section class="table-section" aria-label="Recent sensor readings">
+        <h3>Recent Readings</h3>
+        <div class="table-wrapper">
+          <table id="readings-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Time</th>
+                <th>Temp (°C)</th>
+                <th>Smoke (ppm)</th>
+                <th>Flame</th>
+                <th>Humidity (%)</th>
+                <th>Location</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <tr>
+                <td colspan="7" class="no-data">Fetching data…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>🌲 Forest Fire &amp; Smoke Monitor — IoT Dashboard | Data refreshes every 5 seconds</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
